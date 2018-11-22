@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+   <!-- //////////////////////////////////////////////// constructor start //////////////////////////////////////////////// -->
+    <!--
+        c- 命名空间 声明构造函数
+        xmlns:c="http://www.springframework.org/schema/c"
+
+        引用注入:
+            c:constructorArgName-ref="beanId"
+            c-:命名空间前缀   constructorvvcv ArgName:构造器参数名   -ref:注入bean引用   beanId:要注入的bean的ID.
+        引用注入:
+            c:constructorArgName="beanId"
+    -->
+
+
+
+
+    <bean class="example01.bean.SgtPeppers">
+        <!--<constructor-arg value="" index="" name="" ref="" type=""></constructor-arg>-->
+    </bean>
+
+    <!-- //////////////////////////////////////////////// constructor end //////////////////////////////////////////////// -->
+
+
+
+
+
+
+</beans>
