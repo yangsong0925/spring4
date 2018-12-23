@@ -2,32 +2,87 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
-   <!-- //////////////////////////////////////////////// constructor start //////////////////////////////////////////////// -->
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/context/spring-util.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/p
+       http://www.springframework.org/schema/context/spring-p.xsd">
     <!--
-        c- 命名空间 声明构造函数
-        xmlns:c="http://www.springframework.org/schema/c"
+        Spring-beans 模式：
+            <beans> 是该模式的一个元素，所有 Spring 配置文件的 根元素。
 
-        引用注入:
-            c:constructorArgName-ref="beanId"
-            c-:命名空间前缀   constructorvvcv ArgName:构造器参数名   -ref:注入bean引用   beanId:要注入的bean的ID.
-        引用注入:
-            c:constructorArgName="beanId"
+
+
+
+        c- 命名空间 声明构造函数
+
+            引用注入:
+                下面两种形式: 参数名称替换成参数角标, _原因:XML中不允许数字作为属性的第一个字符，故添加下划线作为前缀。
+                c:constructorArgName-ref="beanId"       eg: c:cd-ref="sgtPeppers"
+                c:_index-ref="beanId"                   eg: c:_0-ref="sgtPeppers"
+                c-:命名空间前缀   constructorArgName:构造器参数名   -ref:注入bean引用   beanId:要注入的bean的ID.   index:构造函数中参数位置
+                <bean id="cDPlayer" class="example01.bean.CDPlayer" c:_0-ref="sgtPeppers"/>
+
+           常量注入: 与引用注入基本相同 唯一不同: 单个常量构造函数时,可使用 c:_=""
+
+           集合装配:
+                <list/> 元素是 <constructor-arg/>的子元素。 表示一个包含值的列表传到构造器中，<value/> 指定列表中的元素。 <ref/> 设置引用元素。
+                <set/> 与 <list/>设置相同.<set/> 有去重操作。
+                C 空间无法装配集合。
+
+                <constructor-arg ><null/></constructor-arg> 将属性设置为 null
+                <list/>:
+                    <constructor-arg > <list> <value>111 111</value> ... </list></constructor-arg>
+
+
+      p- 命名空间 属性赋值
+            p:paramName="value"           p:paramName-ref="beanId"
+            p:参数名称="值"  引用类型加 -ref,值为beanId。 tip: p空间不能装配集合，但可以通过 util- 空间创建对象引用进来。
+
+      util- 命名空间 创建列表 bean
+            <util:constant/>        引用某个类型的 public static 域，并将其暴露为bean。
+            <util:list/>            创建一个 java.util.List 类型的bean，其中包含值或引用。
+            <util:map/>             创建一个 java.util.Map 类型的bean，其中包含值或引用。
+            <util:properties/>      创建一个 java.util.properties 类型的bean，其中包含值或引用。
+            <util:property-path/>   引用一个bean的属性（或内嵌属性），并将其暴露为bean。
+            <util:set/>             创建一个 java.util.Set 类型的bean，其中包含值或引用。
+
+
     -->
 
+    <!-- 引用注入 -->
+    <bean id="cDPlayer" class="example01.bean.CDPlayer" c:_0-ref="sgtPeppers" />
 
-
-
-    <bean class="example01.bean.SgtPeppers">
-        <!--<constructor-arg value="" index="" name="" ref="" type=""></constructor-arg>-->
+    <!-- 常量注入 -->
+    <bean id="blankDisc0" class="example01.bean.BlankDisc" >
+        <constructor-arg value="Club Bank" />
+        <constructor-arg value="The Beaktles" />
+        <constructor-arg ><null/></constructor-arg>
     </bean>
 
-    <!-- //////////////////////////////////////////////// constructor end //////////////////////////////////////////////// -->
+    <bean id="blankDisc1" class="example01.bean.BlankDisc" >
+        <constructor-arg value="Club Bank" />
+        <constructor-arg value="The Beaktles" />
+        <constructor-arg >
+            <list>
+                <value>111 111</value>
+                <value>222 222</value>
+                <value>333 333</value>
+            </list>
+        </constructor-arg>
+    </bean>
 
+    <bean id="blankDisc2" class="example01.bean.BlankDisc" c:_0="1" c:artist="2"  />
 
-
-
-
-
+    <util:list id="trackList">
+        <value>111 111</value>
+        <value>222 222</value>
+        <value>333 333</value>
+    </util:list>
 </beans>

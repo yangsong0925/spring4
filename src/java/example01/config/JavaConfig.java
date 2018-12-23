@@ -18,12 +18,19 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan
 /**
  * @Configuration 表明该类为 配置类，包含Spring应用上下文如何创建 bean 的细节。
+ *  bean 创建失败 BeanCreationException
  */
 @Configuration
 public class JavaConfig {
 
     /**
      * @Bean 标注该方法返回一个对象，将该对象注册为Spring应用上下文中的bean。方法体中包含了最终产生bean实例的逻辑。
+     *  bean ID 与方法名相同
+     *
+     *     String[] name() default {};                              指定 bean id
+     *     Autowire autowire() default Autowire.NO;
+     *     String initMethod() default "";                          初始化方法
+     *     String destroyMethod() default "(inferred)";             销毁方法
      */
     @Bean
     public CompactDisc sgtPeppers(){
