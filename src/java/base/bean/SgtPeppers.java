@@ -1,4 +1,4 @@
-package example01.bean;
+package base.bean;
 
 
 public class SgtPeppers implements CompactDisc {

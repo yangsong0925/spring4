@@ -1,11 +1,9 @@
 package example01.config;
 
 
-import example01.bean.CompactDisc;
-import example01.bean.SgtPeppers;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import base.bean.CompactDisc;
+import base.bean.SgtPeppers;
+import org.springframework.context.annotation.*;
 
 /**
  * @ComponentScan 默认以配置类所在的基础包(base package)包括子包 等同于 <context:component-scan base-package=""/>
@@ -21,6 +19,7 @@ import org.springframework.context.annotation.Configuration;
  *  bean 创建失败 BeanCreationException
  */
 @Configuration
+@ImportResource("classpath:example01/resource/XmlConfig.xml")
 public class JavaConfig {
 
     /**
